@@ -28,6 +28,7 @@ def main():
         page = {
             'input': doc, # ex. 'content/index.html'
             'output': output_directory_path + file_name , # ex. 'docs/index.html'
+            'file_name': file_name,
             'title': 'Homepage' if name_only == 'index' else name_only.capitalize(), # ex. 'index'
         }
 
@@ -47,10 +48,12 @@ def main():
     # iterate through dictionary for each page and assemble using Jinja,
     # inserting/replacing title and content
     print('rendering templates with context...')
+
     for page in pages:
         html_output = template.render(
             title=page['title'],
-            content=open(page['input']).read()
+            content=open(page['input']).read(),
+            pages=pages
         )
         open(page['output'],'w+').write(html_output)
 
