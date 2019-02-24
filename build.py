@@ -7,28 +7,33 @@ def content_insert(template, content, insert_marker="{{ content }}"):
     return output
 
 def main():
-    pages = [
-        {
-            'input': 'content/index.html',
-            'output': 'docs/index.html',
-            'title': 'Homepage',
-        },
-        {
-            'input': 'content/bio.html',
-            'output': 'docs/bio.html',
-            'title': 'Bio',
-        },
-        {
-            'input': 'content/blog.html',
-            'output': 'docs/blog.html',
-            'title': 'Blog',
-        },
-        {
-            'input': 'content/projects.html',
-            'output': 'docs/projects.html',
-            'title': 'Projects',
-        },
-        ]
+    import glob
+    import os
+
+    pages = []
+    all_content_docs = glob.glob("content/*.html") # returns list of filepaths
+    for doc in all_content_docs:
+        # create dictionary with input filepath, output filepath, and title
+
+        # define output directory path and filename to be appended for each doc
+        output_directory_path = 'docs/'
+        file_name = os.path.basename(doc)
+
+        # remove extension to use filename as page title
+        name_only, extension = os.path.splitext(file_name)
+        print("name only:",name_only,"extension",extension)
+
+        page = {
+            'input': doc, # ex. 'content/index.html'
+            'output': output_directory_path + file_name , # ex. 'docs/index.html'
+            'title': 'Homepage' if name_only == 'index' else name_only.capitalize(), # ex. 'index'
+        }
+
+        pages.append(page)
+
+    print('pages: ', pages)
+
+
 
     print("website fragments... assemble!!!")
 
