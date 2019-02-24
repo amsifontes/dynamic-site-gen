@@ -9,7 +9,9 @@ def content_insert(template, content, insert_marker="{{ content }}"):
 def main():
     import glob
     import os
+    from jinja2 import Template
 
+    print('compiling pages list...')
     pages = []
     all_content_docs = glob.glob("content/*.html") # returns list of filepaths
     for doc in all_content_docs:
@@ -31,22 +33,31 @@ def main():
 
         pages.append(page)
 
+    print('pages list complete.')
     print('pages: ', pages)
 
 
 
-    print("website fragments... assemble!!!")
+    print('ingesting base template...')
 
     # ingest base template
-    template = ingest_base('templates/base.html')
+    template_html = open('templates/base.html').read()
+    template = Template(template_html)
 
-    # ingest dictionary for each page and assemble using metadata,
+    # iterate through dictionary for each page and assemble using Jinja,
     # inserting/replacing title and content
+    print('rendering templates with context...')
     for page in pages:
-        content = open(page['input']).read()
-        full_page = content_insert(template, content)
-        titled_full_page = content_insert(full_page, page['title'], insert_marker="{{ title }}")
-        open(page['output'], 'w+').write(titled_full_page)
+        html_output = template.render(
+            title=page['title'],
+            content=open(page['input']).read()
+        )
+        open(page['output'],'w+').write(html_output)
+
+        # content = open(page['input']).read()
+        # full_page = content_insert(template, content)
+        # titled_full_page = content_insert(full_page, page['title'], insert_marker="{{ title }}")
+        # open(page['output'], 'w+').write(titled_full_page)
 
 
     print("fragments assembled successfully! :)")
