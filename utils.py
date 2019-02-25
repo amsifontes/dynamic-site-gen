@@ -63,10 +63,24 @@ def render_pages(pages):
         )
         open(page['output'],'w+').write(html_output)
 
-        # content = open(page['input']).read()
-        # full_page = content_insert(template, content)
-        # titled_full_page = content_insert(full_page, page['title'], insert_marker="{{ title }}")
-        # open(page['output'], 'w+').write(titled_full_page)
-
 
     print("fragments assembled successfully! :)")
+
+
+def new_page(filename='helloworld.html'):
+    f = open(filename,'w+')
+
+    message = """
+        <!DOCTYPE html><html lang="en">
+        <head><title>Page Title</title></head>
+        <body>
+        <h1>Content Title</h1>
+        <hr />
+        <p>Some sweet, sweet new content...</p>
+        </html>
+        """
+
+
+
+    f.write(message)
+    f.close()

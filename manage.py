@@ -14,6 +14,10 @@ def main():
             print('All done...Enjoy!!!')
         elif argument == 'new':
             print('add new page functionality here.')
+            try:
+                utils.new_page(filename= sys.argv[2])
+            except:
+                utils.new_page()
         elif argument == 'help':
             print("""
             Example commands:
