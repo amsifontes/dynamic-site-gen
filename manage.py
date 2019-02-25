@@ -14,13 +14,19 @@ def main():
             print('All done...Enjoy!!!')
         elif argument == 'new':
             print('add new page functionality here.')
+        elif argument == 'help':
+            print("""
+            Example commands:
+                Rebuild site:    python manage.py build
+                Create new page: python manage.py new
+                """)
         else:
             print("Hmm... I don't recognize that argument. Please specify 'build' or 'new'")
 
     except:
         print("""
         Usage:
-            Rebuild site: python manage.py build
+            Rebuild site:    python manage.py build
             Create new page: python manage.py new
             """)
 
