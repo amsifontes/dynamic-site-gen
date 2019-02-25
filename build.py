@@ -1,10 +1,4 @@
-def ingest_base(base_file_path):
-    base_file = open(base_file_path).read()
-    return base_file
 
-def content_insert(template, content, insert_marker="{{ content }}"):
-    output = template.replace(insert_marker, content)
-    return output
 
 def main():
     import glob
@@ -28,14 +22,24 @@ def main():
         page = {
             'input': doc, # ex. 'content/index.html'
             'output': output_directory_path + file_name , # ex. 'docs/index.html'
-            'file_name': file_name,
-            'title': 'Homepage' if name_only == 'index' else name_only.capitalize(), # ex. 'index'
+            'file_name': file_name, # ex. index.html
+            'title': 'Homepage' if name_only == 'index' else name_only.capitalize(), # ex. 'Index'
         }
 
         pages.append(page)
 
     print('pages list complete.')
     print('pages: ', pages)
+
+    print('moving index to front of list...')
+
+    # find index of dict object in list for Homepage and assign to var idx
+    for page in pages:
+        if page['file_name'] == 'index.html':
+            idx = pages.index(page)
+
+    # pop Homepage dict object from list by index and insert at front of list
+    pages.insert(0,pages.pop(idx))
 
 
 
