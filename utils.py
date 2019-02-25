@@ -70,16 +70,3 @@ def render_pages(pages):
 
 
     print("fragments assembled successfully! :)")
-
-
-def main():
-
-    pages = discover_pages()
-    render_pages(pages)
-
-    print('All done...Enjoy!!!')
-
-
-
-if __name__ == '__main__':
-    main()
